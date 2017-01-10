@@ -414,6 +414,7 @@ window.previewThread = function(tid, tbody) {
 									break;
 								}
 							}
+							// 为什么这个调用没有传参数？
 							fastfarm();
 							return false;
 						}
@@ -538,7 +539,67 @@ window.previewThread = function(tid, tbody) {
 })();
 
 // 回帖页处理结束
-}
+
+// 收集所有的已有回帖
+var replys = new Array();
+(function () {
+	var postlist = document.getElementById("postlist");
+	if (postlist == null) {
+		return;
+	}
+	var postNodes = postlist.childNodes;
+	for (var i = 0; i < postNodes.length; i++) {
+		var postNode = postNodes[i];
+
+		if (postNode && 
+			postNode.getAttribute && 
+			postNode.getAttribute("id") && 
+			postNode.getAttribute("id").match("post_")) {
+			var tds = postNode.getElementsByTagName("td");
+
+			for (var k = 0; k < tds.length; k++) {
+				// 内容
+				if (tds[k].id && tds[k].id.match("postmessage_")) {
+					tds[k].innerHTML = recoverText(tds[k].innerHTML);
+				}
+			}
+			var divs = postNode.getElementsByTagName("div");
+			for (var j = 0; j < divs.length; j++) {
+				if (divs[j].className == "authi" && divs[j].parentNode.className == "pti") {
+					var postText = "伐木伐木";
+					var tds = divs[j].parentNode.parentNode.parentNode.getElementsByTagName("td");
+					for (var k = 0; k < tds.length; k++) {
+						if (tds[k].getAttribute("id").match("postmessage_")) {
+							replaceFace(tds[k]);
+							// 去掉文本开始的空格
+							postText = (tds[k].innerText || tds[k].textContent || tds[k].text || "").replace(/^\s*/g, "");
+							if (postText[0] == "\n") {
+								postText = postText.slice(1);
+							}
+							break;
+						}
+					}
+					replys[i] = postText;
+				}
+			}
+		}
+	}
+})();
+
+// 开始自动回帖
+(function() {
+	count = 0;
+	var intervalId = setInterval(function() {
+		count++;
+		if(count <= 3) {
+			index = Math.random() * replys.length;
+			curText = replys[index];
+			fastfarm(curText);	
+		} else {
+			clearInterval(intervalId);
+		}
+	},16000);
+})();
 
 // iframe不会触发
 }
