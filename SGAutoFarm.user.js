@@ -1,3 +1,4 @@
+/*
 // ==UserScript==
 // @name        SGAutoFarm
 // @namespace   com.sgamer.bbs.sgautofarm
@@ -9,7 +10,7 @@
 // @version     1.0
 // @grant       none
 // ==/UserScript==
-
+*/
 var devmode = false;
 if (devmode) {
 	var timestamp = new Date();
