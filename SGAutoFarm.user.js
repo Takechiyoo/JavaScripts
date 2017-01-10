@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        SGAutoFarm
 // @namespace   com.sgamer.bbs.farmkit
-// @description SG伐木助手
+// @description SG自动伐木机
 // @include     http://bbs.sgamer.com/forum-*.html
 // @include     http://bbs.sgamer.com/thread-*.html
 // @include     http://bbs.sgamer.com/*mod=viewthread*
