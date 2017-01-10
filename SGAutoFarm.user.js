@@ -542,7 +542,6 @@ if (devmode) {
 }
 
 // 收集所有的已有回帖
-alert("Hello World!!!")
 var replys = new Array();
 (function () {
 	var postlist = document.getElementById("postlist");
@@ -586,17 +585,17 @@ var replys = new Array();
 			}
 		}
 	}
-	wholeText = replys.join("\n");
-	alert(wholeText);
+//	wholeText = replys.join("\n");
+//	alert(wholeText);
 })();
 
-// 开始自动回帖
+开始自动回帖
 (function() {
 	count = 0;
 	var intervalId = setInterval(function() {
 		count++;
 		if(count <= 3) {
-			index = Math.random() * replys.length;
+			index = parseInt(Math.random() * replys.length);
 			curText = replys[index];
 			fastfarm(curText);	
 		} else {
@@ -604,3 +603,7 @@ var replys = new Array();
 		}
 	},16000);
 })();
+
+// index = Math.random() * replys.length;
+// curText = replys[index];
+// fastfarm(curText);
