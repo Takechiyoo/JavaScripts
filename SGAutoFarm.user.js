@@ -589,7 +589,8 @@ var replys = new Array();
 //	alert(wholeText);
 })();
 
-// 开始自动回帖
+// 开始自动回帖 setInterval方式实现多次回帖  但是最好还是采用setTimeout的方式
+
 // (function() {
 // 	var count = 0;
 // 	var intervalId = setInterval(function() {
@@ -606,15 +607,15 @@ var replys = new Array();
 // 	},16000);
 // })();
 
+
 var count = 0;
-function autoReply() {
+function actualReply() {
 	count++;
 
-	if(count <= 3) {
+	if(count <= 2) {
 		var index = parseInt(Math.random() * replys.length);
 		var curText = replys[index];
 		// 写成了中文分号出错  怎么debug js代码啊
-		alert("准备开始回帖");
 		fastfarm(curText);
 		setTimeout(autoReply, 16000);
 	} else {
@@ -622,8 +623,6 @@ function autoReply() {
 	}
 }
 
-setTimeout(autoReply, 16000);
-
-// index = parseInt(Math.random() * replys.length);
-// curText = replys[index];
-// fastfarm(curText);
+// to-do 通过主题列表页  实现全天自动伐木  每天伐木两百经验
+// 只对有回复的主题进行伐木 每个主题一天只伐木一次 
+setTimeout(actualReply, 16000);
