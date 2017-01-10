@@ -1,12 +1,12 @@
 // ==UserScript==
-// @name        sg farmkit
-// @namespace   com.sgamer.bbs.farmkit
-// @description SG伐木助手
+// @name        SGAutoFarm
+// @namespace   com.sgamer.bbs.sgautofarm
+// @description SG自动伐木机
 // @include     http://bbs.sgamer.com/forum-*.html
 // @include     http://bbs.sgamer.com/thread-*.html
 // @include     http://bbs.sgamer.com/*mod=viewthread*
 // @include     http://bbs.sgamer.com/*mod=forumdisplay*
-// @version     3.3.7
+// @version     1.2
 // @grant       none
 // ==/UserScript==
 
