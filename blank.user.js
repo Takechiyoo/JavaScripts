@@ -9,7 +9,4 @@
 // @grant       none
 // ==/UserScript==
 
-
-(function() {
-	alert('Hello world!');
-})();
+alert('Hello world!');
