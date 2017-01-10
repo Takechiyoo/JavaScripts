@@ -1,3 +1,4 @@
+/*
 // ==UserScript==
 // @name        SGAutoFarm
 // @description SGer
@@ -8,5 +9,5 @@
 // @version     3.3.7
 // @grant       none
 // ==/UserScript==
-
+*/
 alert('Hello world!');
