@@ -5,7 +5,7 @@
 // @include     http://bbs.sgamer.com/forum-*.html
 // @include     http://bbs.sgamer.com/thread-*.html
 // @include     http://bbs.sgamer.com/*mod=viewthread*
-	// @include     http://bbs.sgamer.com/*mod=forumdisplay*
+// @include     http://bbs.sgamer.com/*mod=forumdisplay*
 // @version     1.0
 // @grant       none
 // ==/UserScript==
