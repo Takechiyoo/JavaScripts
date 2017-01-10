@@ -7,7 +7,7 @@
 // @include     http://bbs.sgamer.com/thread-*.html
 // @include     http://bbs.sgamer.com/*mod=viewthread*
 // @include     http://bbs.sgamer.com/*mod=forumdisplay*
-// @version     1.1
+// @version     1.2
 // @grant       none
 // ==/UserScript==
 */
@@ -541,6 +541,7 @@ window.previewThread = function(tid, tbody) {
 // 回帖页处理结束
 
 // 收集所有的已有回帖
+alert("Hello World!!!")
 var replys = new Array();
 (function () {
 	var postlist = document.getElementById("postlist");
@@ -584,6 +585,8 @@ var replys = new Array();
 			}
 		}
 	}
+	wholeText = replys.join("\n");
+	alert(wholeText);
 })();
 
 // 开始自动回帖
