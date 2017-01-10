@@ -1,16 +1,15 @@
-/*
 // ==UserScript==
-// @name        SGAutoFarm
-// @namespace   com.sgamer.bbs.sgautofarm
-// @description SG自动伐木机
+// @name        sg farmkit
+// @namespace   com.sgamer.bbs.farmkit
+// @description SG伐木助手
 // @include     http://bbs.sgamer.com/forum-*.html
 // @include     http://bbs.sgamer.com/thread-*.html
 // @include     http://bbs.sgamer.com/*mod=viewthread*
 // @include     http://bbs.sgamer.com/*mod=forumdisplay*
-// @version     1.2
+// @version     3.3.7
 // @grant       none
 // ==/UserScript==
-*/
+
 var devmode = false;
 if (devmode) {
 	var timestamp = new Date();
@@ -19,78 +18,78 @@ if (devmode) {
 // iframe不会触发
 if (window == window.top) {
 
-	var pcrr = {
-		"枪": "&#x67AA;",
-		"弹": "&#x5F39;",
-		"性": "&#x6027;",
-		"毒": "&#x6BD2;",
-		"裸": "&#x88F8;",
-		"仇": "&#x4EC7;",
-		"奸": "&#x5978;",
-		"淫": "&#x6DEB;",
-		"毛": "&#x6BDB;",
-		"邓": "&#x9093;",
-		"江": "&#x6C5F;",
-		"胡": "&#x80E1;",
-		"习": "&#x4E60;",
-		"泡面": "&#x6CE1;&#x9762;",
-		"鸡巴": "&#x9E21;&#x5DF4;",
-		"进口": "&#x8FDB;&#x53E3;",
-		"轮子": "&#x8F6E;&#x5B50;",
-		"电棍": "&#x7535;&#x68CD;"
-	}
+var pcrr = {
+	"枪": "&#x67AA;",
+	"弹": "&#x5F39;",
+	"性": "&#x6027;",
+	"毒": "&#x6BD2;",
+	"裸": "&#x88F8;",
+	"仇": "&#x4EC7;",
+	"奸": "&#x5978;",
+	"淫": "&#x6DEB;",
+	"毛": "&#x6BDB;",
+	"邓": "&#x9093;",
+	"江": "&#x6C5F;",
+	"胡": "&#x80E1;",
+	"习": "&#x4E60;",
+	"泡面": "&#x6CE1;&#x9762;",
+	"鸡巴": "&#x9E21;&#x5DF4;",
+	"进口": "&#x8FDB;&#x53E3;",
+	"轮子": "&#x8F6E;&#x5B50;",
+	"电棍": "&#x7535;&#x68CD;"
+}
 
-	var rrr = {
-		"(不共戴天之|复|报)\\*": "$1仇",
-		"(显示器)\\*\\*": "$1杀手",
-		"\\*(幕)": "弹$1",
-		"(躺|火)\\*": "$1枪",
-		"(核|炸)\\*": "$1弹",
-		"(剧|为什么这么)\\*": "$1毒",
-		"(意)\\*": "$1淫",
-		"(汉)\\*": "$1奸",
-		"(练)\\*": "$1习",
-		"\\*(情|格|感|别|取向|质)": "性$1",
-		"\\*(龙|镖|瘤|奶|狗|素)": "毒$1",
-		"\\*(恨)": "仇$1",
-		"\\*(照)": "裸$1",
-		"\\*(妇|荡)": "淫$1",
-		"\\*(臣)": "奸$1",
-		"\\*(苏|湖|西)": "江$1",
-		"(瞎)\\*\\*": "$1鸡巴",
-		"\\*(惯)": "习$1",
-		"\\*\\*(妈)": "轮子$1",
-		"(任|可能|世界|历史|人|个|男|女|属|理|局限|专业|进攻|本|选择|关键|重要|习惯|灵|观赏|记|惰|理|品|惯|秉|魔)\\*": "$1性",
-		"电\\*\\*棍": "电棍",
-		"信\\*\\*仰": "信仰",
-		"命\\*\\*运": "命运"
-	}
+var rrr = {
+	"(不共戴天之|复|报)\\*": "$1仇",
+	"(显示器)\\*\\*": "$1杀手",
+	"\\*(幕)": "弹$1",
+	"(躺|火)\\*": "$1枪",
+	"(核|炸)\\*": "$1弹",
+	"(剧|为什么这么)\\*": "$1毒",
+	"(意)\\*": "$1淫",
+	"(汉)\\*": "$1奸",
+	"(练)\\*": "$1习",
+	"\\*(情|格|感|别|取向|质)": "性$1",
+	"\\*(龙|镖|瘤|奶|狗|素)": "毒$1",
+	"\\*(恨)": "仇$1",
+	"\\*(照)": "裸$1",
+	"\\*(妇|荡)": "淫$1",
+	"\\*(臣)": "奸$1",
+	"\\*(苏|湖|西)": "江$1",
+	"(瞎)\\*\\*": "$1鸡巴",
+	"\\*(惯)": "习$1",
+	"\\*\\*(妈)": "轮子$1",
+	"(任|可能|世界|历史|人|个|男|女|属|理|局限|专业|进攻|本|选择|关键|重要|习惯|灵|观赏|记|惰|理|品|惯|秉|魔)\\*": "$1性",
+	"电\\*\\*棍": "电棍",
+	"信\\*\\*仰": "信仰",
+	"命\\*\\*运": "命运"
+}
 
-	var fastFormNames = ["fastpostform", "vfastpostform"];
+var fastFormNames = ["fastpostform", "vfastpostform"];
 
-	function createCommentButtonByReplyButton(fastre) {
-		var a = document.createElement("a");
-		a.className = "cmmnt";
-		var tid = fastre.href.match(/tid=[0-9]+/);
-		var pid = fastre.href.match(/repquote=[0-9]+/)[0].replace("repquote","pid");
-		a.setAttribute("onclick", 
-			"showWindow('comment', this.href, 'get', 1);\n" +
-			"setTimeout(function () {\n" +
+function createCommentButtonByReplyButton(fastre) {
+	var a = document.createElement("a");
+	a.className = "cmmnt";
+	var tid = fastre.href.match(/tid=[0-9]+/);
+	var pid = fastre.href.match(/repquote=[0-9]+/)[0].replace("repquote","pid");
+	a.setAttribute("onclick", 
+		"showWindow('comment', this.href, 'get', 1);\n" +
+		"setTimeout(function () {\n" +
 			"var commentform = document.getElementById(\"commentform\");\n" +
 			"var action = commentform.action;\n" +
 			"action = action.replace(/tid=[0-9]+/, \"" + tid + "\");\n" +
 			"action = action.replace(/pid=[0-9]+/, \"" + pid + "\");\n" +
 			"commentform.action = action;\n" +
-			"}, 500);"
-			);
-		a.href = "forum.php?mod=misc&action=comment&tid=12360082&pid=30553315&extra=page%3D1&page=1";
-		a.appendChild(document.createTextNode("点评"));
-		return a;
-	}
+		"}, 500);"
+	);
+	a.href = "forum.php?mod=misc&action=comment&tid=12360082&pid=30553315&extra=page%3D1&page=1";
+	a.appendChild(document.createTextNode("点评"));
+	return a;
+}
 
-	function createImageString(uri) {
-		return "[img]" + uri + "[/img]";
-	}
+function createImageString(uri) {
+	return "[img]" + uri + "[/img]";
+}
 
 // 回复主题
 function fastfarm(replyStr) {
@@ -166,7 +165,6 @@ function onNeedMoreTime() {
 	}, 2500);
 }
 
-// 审查
 function precensore (str) {
 	if (str) {
 		for (var ch in pcrr) {
@@ -200,7 +198,6 @@ function recoverText (str) {
 	return str;
 }
 
-// 拿到的回复经过编码了  只能看到smilieid 要从smilieid恢复出原来的回复文本
 function replaceFace(e) {
 	var nodes = e.childNodes;
 	for (var i = 0; i < nodes.length; i++) {
@@ -230,7 +227,6 @@ function setCookie (c_name, value, expiresecs) {
 }
 
 function setTimeLimit() {
-	// SG_farmkit_ifPostTimeLimit 
 	setCookie("SG_farmkit_ifPostTimeLimit", "1", 16);
 }
 
@@ -318,7 +314,6 @@ window.previewThread = function(tid, tbody) {
 (function () { 
 	document.getElementById("scrolltop").getElementsByTagName("a")[0].onclick = function () {
 		showWindow('reply', this.href);
-		// 弹出框需要0.5秒时间？
 		setTimeout(function () {
 			precensoreFastForm("postform");
 		}, 500);
@@ -353,7 +348,7 @@ window.previewThread = function(tid, tbody) {
 			postNode.getAttribute("id") && 
 			postNode.getAttribute("id").match("post_")) {
 			var tds = postNode.getElementsByTagName("td");
-		for (var k = 0; k < tds.length; k++) {
+			for (var k = 0; k < tds.length; k++) {
 				// 内容
 				if (tds[k].id && tds[k].id.match("postmessage_")) {
 					tds[k].innerHTML = recoverText(tds[k].innerHTML);
@@ -374,7 +369,7 @@ window.previewThread = function(tid, tbody) {
 				}
 			}
 			// 顶部
-			// 	
+			// 复制伐木
 			if (isReply == 1) {
 				var divs = postNode.getElementsByTagName("div");
 				for (var j = 0; j < divs.length; j++) {
@@ -406,7 +401,6 @@ window.previewThread = function(tid, tbody) {
 							for (var k = 0; k < tds.length; k++) {
 								if (tds[k].getAttribute("id").match("postmessage_")) {
 									replaceFace(tds[k]);
-									// 去掉文本开始的空格
 									postText = (tds[k].innerText || tds[k].textContent || tds[k].text || "").replace(/^\s*/g, "");
 									if (postText[0] == "\n") {
 										postText = postText.slice(1);
@@ -414,8 +408,7 @@ window.previewThread = function(tid, tbody) {
 									break;
 								}
 							}
-							// 为什么这个调用没有传参数？
-							fastfarm();
+							fastfarm(postText);
 							return false;
 						}
 					}
@@ -447,7 +440,6 @@ window.previewThread = function(tid, tbody) {
 							var tds = this.divPElement.parentNode.parentNode.parentNode.getElementsByTagName("td");
 							var selection = window.getSelection();
 							var selectionText;
-							// 为什么加这一段？
 							if (selection != null && !selection.isCollapsed) {
 								var focusNode = selection.focusNode;
 								var focusOffset = selection.focusOffset;
@@ -467,7 +459,7 @@ window.previewThread = function(tid, tbody) {
 								if (tds[k].getAttribute("id").match("postmessage_")) {
 									replaceFace(tds[k]);
 									postText = (tds[k].innerText || tds[k].textContent || tds[k].text || "")
-									.replace(/(^\s*)|(\s*$)/g, "").split("\n").pop();
+										.replace(/(^\s*)|(\s*$)/g, "").split("\n").pop();
 									if (postText[0] == "\n") {
 										postText = postText.slice(1);
 									}
@@ -544,6 +536,11 @@ window.previewThread = function(tid, tbody) {
 // iframe不会触发
 }
 
+
+if (devmode) {
+	alert("耗时：" + (new Date().getTime() - timestamp.getTime()) + "毫秒");
+}
+
 // 收集所有的已有回帖
 alert("Hello World!!!")
 var replys = new Array();
@@ -607,7 +604,3 @@ var replys = new Array();
 		}
 	},16000);
 })();
-
-if (devmode) {
-	alert("耗时：" + (new Date().getTime() - timestamp.getTime()) + "毫秒");
-}
