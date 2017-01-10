@@ -589,21 +589,23 @@ var replys = new Array();
 //	alert(wholeText);
 })();
 
-开始自动回帖
-(function() {
-	count = 0;
-	var intervalId = setInterval(function() {
-		count++;
-		if(count <= 3) {
-			index = parseInt(Math.random() * replys.length);
-			curText = replys[index];
-			fastfarm(curText);	
-		} else {
-			clearInterval(intervalId);
-		}
-	},16000);
-})();
+// 开始自动回帖
+// (function() {
+// 	count = 0;
+// 	var intervalId = setInterval(function() {
+// 		count++;
+// 		if(count <= 3) {
+// 			index = parseInt(Math.random() * replys.length);
+// 			curText = replys[index];
+// 			alert("准备开始回帖")；
+// 			alert(curText);
+// 			fastfarm(curText);	
+// 		} else {
+// 			clearInterval(intervalId);
+// 		}
+// 	},16000);
+// })();
 
-// index = Math.random() * replys.length;
-// curText = replys[index];
-// fastfarm(curText);
+index = parseInt(Math.random() * replys.length);
+curText = replys[index];
+fastfarm(curText);
