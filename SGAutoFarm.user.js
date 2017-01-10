@@ -539,6 +539,10 @@ window.previewThread = function(tid, tbody) {
 })();
 
 // 回帖页处理结束
+}
+
+// iframe不会触发
+}
 
 // 收集所有的已有回帖
 alert("Hello World!!!")
@@ -603,10 +607,6 @@ var replys = new Array();
 		}
 	},16000);
 })();
-
-// iframe不会触发
-}
-
 
 if (devmode) {
 	alert("耗时：" + (new Date().getTime() - timestamp.getTime()) + "毫秒");
