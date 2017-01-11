@@ -6,7 +6,7 @@
 // @include     http://bbs.sgamer.com/thread-*.html
 // @include     http://bbs.sgamer.com/*mod=viewthread*
 // @include     http://bbs.sgamer.com/*mod=forumdisplay*
-// @version     1.3.6
+// @version     1.3.7
 // @grant       none
 // ==/UserScript==
 
@@ -625,7 +625,7 @@ function semiAutoFarm() {
 	}
 	setTimeout(actualReply, 16000);
 }
-
+var flag = 0;
 (function (){
 	var p1 = new RegExp("http://bbs.sgamer.com/thread-.*html");
 	// var p2 = new RegExp("http://bbs.sgamer.com/*mod=viewthread*");
@@ -633,7 +633,9 @@ function semiAutoFarm() {
 	if(p1.test(location.href)) {
 		var curText = "伐木伐木";
 		alert(curText);
+		// 回复之后  脚本没有再跑一遍
 		ajaxfastfarm(curText);
+		flag++;
 	}
 })();
 
@@ -641,7 +643,7 @@ function semiAutoFarm() {
 	var p = new RegExp("http://bbs.sgamer.com/forum-.*html");
 	if(p.test(location.href)) {
 
-		var allThreads = window.getElementsByTagName("tbody");
+		var allThreads = document.getElementsByTagName("tbody");
 		for(i = 0, len = allThreads.length; i < len; i++) {
 
 			if(allThreads[i].id.match(/normalthread_(.*)/)) {
