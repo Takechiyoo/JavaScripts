@@ -594,10 +594,10 @@ var replys = new Array();
 // 开始自动回帖 setInterval方式实现多次回帖  但是最好还是采用setTimeout的方式
 
 // (function() {
-// 	var count = 0;
+// 	var replyCount = 0;
 // 	var intervalId = setInterval(function() {
-// 		count++;
-// 		if(count <= 3) {
+// 		replyCount++;
+// 		if(replyCount <= 3) {
 // 			index = parseInt(Math.random() * replys.length);
 // 			curText = replys[index];
 // 			alert("准备开始回帖");
@@ -608,15 +608,16 @@ var replys = new Array();
 // 		}
 // 	},16000);
 // })();
-var count = 0;
+var replyCount = 0;
 function semiAutoFarm() {
 	function actualReply() {
-		alert(count);
-		if(count < 1) {
+		alert(replyCount);
+		if(replyCount < 1) {
 			var index = parseInt(Math.random() * replys.length);
+			// curText里面可能有不合法的
 			var curText = replys[index];
 			if(fastfarm(curText)) {
-				count++;
+				replyCount++;
 			}
 			setTimeout(actualReply, 16000);
 		} else {
