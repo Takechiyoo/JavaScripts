@@ -604,32 +604,9 @@ var replys = new Array();
 			}
 		}
 	}
-//	wholeText = replys.join("\n");
-//	alert(wholeText);
 })();
 
-// 开始自动回帖 setInterval方式实现多次回帖  但是最好还是采用setTimeout的方式
-
-// (function() {
-// 	var replyCount = 0;
-// 	var intervalId = setInterval(function() {
-// 		replyCount++;
-// 		if(replyCount <= 3) {
-// 			index = parseInt(Math.random() * replys.length);
-// 			curText = replys[index];
-// 			alert("准备开始回帖");
-// 			alert(curText);
-// 			fastfarm(curText);	
-// 		} else {
-// 			clearInterval(intervalId);
-// 		}
-// 	},16000);
-// })();
-
-var replyCount = 0;
 function semiAutoFarm() {
-	wholeText = replys.join("\n");
-	console.log(wholeText);
 	function actualReply() {
 		console.log(replyCount);
 		if(replyCount < 2) {
@@ -647,50 +624,41 @@ function semiAutoFarm() {
 	setTimeout(actualReply, 16000);
 }
 
-semiAutoFarm();
+(function(){
+	var p1 = new RegExp("http://bbs.sgamer.com/thread-*.html");
+	var p2 = new RegExp("http://bbs.sgamer.com/*mod=viewthread*");
+	var p3 = new RegExp("http://bbs.sgamer.com/*mod=forumdisplay*");
+	if(p1.test(location.href) || p2.test(location.href) || p3.test(location.href)) {
+		var curText = "伐木伐木";
+		ajaxfastfarm(curText);
+	}
+})();
 
-function autoFarm() {
+(function() {
+	var p = new RegExp("http://bbs.sgamer.com/forum-*.html");
+	if(p.test(location.href)) {
+		location.reload();
 
-}
+		var allThreads = window.getElementsByTagName("tbody");
+		for(i = 0, len = allThreads.length; i < len; i++) {
 
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
+			if(allThreads[i].id.match(/normalthread_(.*)) {
+				tid = RegExp.$1;
+				allAs = allThreads[i].getElementsByTagName('a');
+				for(j = 0, llen = allAs.length; j < llen; j++) {
+					// 正则表达式里面有变量
+					var p = new RegExp("thread-"+tid+"-1-1.html");
+					if(p.test(allAs[j].href)) {
+						message = allAs[j].innerText;
+						break;
+					}
+				}
+				// 如果previewFastFarm调用失败  会继续下一个thread
+				setTimeout(previewFastFarm(tid, message), 16000);
+			}
+		}
+	}
+})();
 
-// 通过主题列表页  实现全天自动伐木 每天伐木两百经验
-// var farmedTids = {}
-// farmedTids.length = 0;
-// function themeListFastFarm() {
-// 	href.reload();
-// 	if(farmedTids.length > 100) {
-// 		return;
-// 	}
-// 	var tid, message;
-// 	var allThreads = window.getElementsByTagName("tbody")
-// 	for(i = 0, len = allThreads.length; i < len; i++) {
-
-// 		if(allThreads[i].id.match(/normalthread_(.*)) {
-// 			tid = RegExp.$1;
-// 			if(farmedTids[tid]) {
-// 				//这个帖子今天已经伐木过了
-// 				continue;
-// 			}
-// 			allAs = allThreads[i].getElementsByTagName('a');
-// 			for(j = 0, llen = allAs.length; j < llen; j++) {
-// 				// 正则表达式里面有变量
-// 				var p = new RegExp("thread-"+tid+"-1-1.html");
-// 				if(p.test(allAs[j].href)) {
-// 					message = allAs[j].value;
-// 					break;
-// 				}
-// 			}
-// 			previewFastFarm(tid, message);
-// 			farmedTids[tid] = tid;
-// 			farmedTids.length++;
-// 			sleep(16000);
-// 		}
-// 	}
-// 	setTimeout(themeListFastFarm, 20 * 60);
-// };
 
 
