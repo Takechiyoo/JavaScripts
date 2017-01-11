@@ -6,7 +6,7 @@
 // @include     http://bbs.sgamer.com/thread-*.html
 // @include     http://bbs.sgamer.com/*mod=viewthread*
 // @include     http://bbs.sgamer.com/*mod=forumdisplay*
-// @version     1.3.8
+// @version     1.3.9
 // @grant       none
 // ==/UserScript==
 
@@ -625,7 +625,7 @@ function semiAutoFarm() {
 	}
 	setTimeout(actualReply, 16000);
 }
-var flag = 0;
+
 (function (){
 	var p1 = new RegExp("http://bbs.sgamer.com/thread-.*html");
 	// var p2 = new RegExp("http://bbs.sgamer.com/*mod=viewthread*");
@@ -633,9 +633,8 @@ var flag = 0;
 	if(p1.test(location.href)) {
 		var curText = "伐木伐木";
 		alert(curText);
-		// 回复之后  脚本没有再跑一遍
+		// 回复之后  脚本没有再跑一遍  但是变量都清空了
 		ajaxfastfarm(curText);
-		flag++;
 	}
 })();
 
@@ -653,13 +652,14 @@ var flag = 0;
 					// 正则表达式里面有变量
 					var p = new RegExp("thread-"+tid+"-1-1.html");
 					if(p.test(allAs[j].href)) {
-						// message = allAs[j].innerText;
-						message = "伐木伐木";
+						message = allAs[j].innerText;
+						alert(message);
 						break;
 					}
 				}
 				// 如果previewFastFarm调用失败  会继续下一个thread
 				setTimeout(function() {
+					message = "伐木伐木";
 					previewFastFarm(tid, message);
 					location.reload();
 				}, 16000);
