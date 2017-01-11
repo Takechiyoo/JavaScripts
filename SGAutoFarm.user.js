@@ -6,7 +6,7 @@
 // @include     http://bbs.sgamer.com/thread-*.html
 // @include     http://bbs.sgamer.com/*mod=viewthread*
 // @include     http://bbs.sgamer.com/*mod=forumdisplay*
-// @version     1.3.9
+// @version     1.3.10
 // @grant       none
 // ==/UserScript==
 
@@ -652,8 +652,8 @@ function semiAutoFarm() {
 					// 正则表达式里面有变量
 					var p = new RegExp("thread-"+tid+"-1-1.html");
 					if(p.test(allAs[j].href)) {
+						// 没有获取到文本
 						message = allAs[j].innerText;
-						alert(message);
 						break;
 					}
 				}
