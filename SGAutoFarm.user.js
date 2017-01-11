@@ -640,7 +640,6 @@ function semiAutoFarm() {
 (function() {
 	var p = new RegExp("http://bbs.sgamer.com/forum-.*html");
 	if(p.test(location.href)) {
-		location.reload();
 
 		var allThreads = window.getElementsByTagName("tbody");
 		for(i = 0, len = allThreads.length; i < len; i++) {
@@ -657,7 +656,10 @@ function semiAutoFarm() {
 					}
 				}
 				// 如果previewFastFarm调用失败  会继续下一个thread
-				setTimeout(previewFastFarm(tid, message), 16000);
+				setTimeout(function() {
+					previewFastFarm(tid, message);
+					location.reload();
+				}, 16000);
 			}
 		}
 	}
