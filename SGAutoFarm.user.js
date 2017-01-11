@@ -6,7 +6,7 @@
 // @include     http://bbs.sgamer.com/thread-*.html
 // @include     http://bbs.sgamer.com/*mod=viewthread*
 // @include     http://bbs.sgamer.com/*mod=forumdisplay*
-// @version     1.2.3
+// @version     1.2.4
 // @grant       none
 // ==/UserScript==
 
@@ -598,7 +598,8 @@ var replys = new Array();
 					if(postText.length == undefined) {
 						postText = "伐木伐木";
 					}
-					replys[i] = postText;
+//					replys[i] = postText;
+					replys[i] = "伐木伐木";
 				}
 			}
 		}
