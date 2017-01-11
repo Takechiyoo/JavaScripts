@@ -95,11 +95,12 @@ function createImageString(uri) {
 function fastfarm(replyStr) {
 	if (getCookie("SG_farmkit_ifPostTimeLimit")) {
 		onNeedMoreTime();
-		return;
+		return false;
 	}
 	document.getElementById("fastpostmessage").value = precensore(recoverText(replyStr));
 	setTimeLimit();
 	document.getElementById("fastpostform").submit();
+	return true;
 }
 
 function getCookie(c_name) {
@@ -245,6 +246,7 @@ window.previewFastFarm = function (tid, message) {
 	form.getElementsByTagName("button")[0].click();
 }
 
+// 这快代码没有完全懂
 window.previewThread = function(tid, tbody) {
 	if(!$('threadPreviewTR_'+tid)) {
 		appendscript(JSPATH + 'forum_viewthread.js?' + VERHASH);
@@ -607,22 +609,67 @@ var replys = new Array();
 // 	},16000);
 // })();
 
+function semiAutoFarm() {
+	var count = 0;
+	function actualReply() {
+		if(count <= 2) {
+			var index = parseInt(Math.random() * replys.length);
+			var curText = replys[index];
+			if(fastfarm(curText)) {
+				count++;
+			}
+			setTimeout(actualReply, 16000);
+		} else {
 
-var count = 0;
-function actualReply() {
-	count++;
-
-	if(count <= 2) {
-		var index = parseInt(Math.random() * replys.length);
-		var curText = replys[index];
-		// 写成了中文分号出错  怎么debug js代码啊
-		fastfarm(curText);
-		setTimeout(autoReply, 16000);
-	} else {
-
+		}
 	}
+	setTimeout(actualReply, 16000);
 }
 
-// to-do 通过主题列表页  实现全天自动伐木  每天伐木两百经验
-// 只对有回复的主题进行伐木 每个主题一天只伐木一次 
-setTimeout(actualReply, 16000);
+semiAutoFarm();
+
+function autoFarm() {
+
+}
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+// 通过主题列表页  实现全天自动伐木 每天伐木两百经验
+// var farmedTids = {}
+// farmedTids.length = 0;
+// function themeListFastFarm() {
+// 	href.reload();
+// 	if(farmedTids.length > 100) {
+// 		return;
+// 	}
+// 	var tid, message;
+// 	var allThreads = window.getElementsByTagName("tbody")
+// 	for(i = 0, len = allThreads.length; i < len; i++) {
+
+// 		if(allThreads[i].id.match(/normalthread_(.*)) {
+// 			tid = RegExp.$1;
+// 			if(farmedTids[tid]) {
+// 				//这个帖子今天已经伐木过了
+// 				continue;
+// 			}
+// 			allAs = allThreads[i].getElementsByTagName('a');
+// 			for(j = 0, llen = allAs.length; j < llen; j++) {
+// 				// 正则表达式里面有变量
+// 				var p = new RegExp("thread-"+tid+"-1-1.html");
+// 				if(p.test(allAs[j].href)) {
+// 					message = allAs[j].value;
+// 					break;
+// 				}
+// 			}
+// 			previewFastFarm(tid, message);
+// 			farmedTids[tid] = tid;
+// 			farmedTids.length++;
+// 			sleep(16000);
+// 		}
+// 	}
+// 	setTimeout(themeListFastFarm, 20 * 60);
+// };
+
+
