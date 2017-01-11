@@ -653,7 +653,8 @@ var flag = 0;
 					// 正则表达式里面有变量
 					var p = new RegExp("thread-"+tid+"-1-1.html");
 					if(p.test(allAs[j].href)) {
-						message = allAs[j].innerText;
+						// message = allAs[j].innerText;
+						message = "伐木伐木";
 						break;
 					}
 				}
