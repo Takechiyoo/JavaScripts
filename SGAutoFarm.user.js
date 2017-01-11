@@ -608,9 +608,8 @@ var replys = new Array();
 // 		}
 // 	},16000);
 // })();
-
+var count = 0;
 function semiAutoFarm() {
-	var count = 0;
 	function actualReply() {
 		if(count < 1) {
 			var index = parseInt(Math.random() * replys.length);
