@@ -6,7 +6,7 @@
 // @include     http://bbs.sgamer.com/thread-*.html
 // @include     http://bbs.sgamer.com/*mod=viewthread*
 // @include     http://bbs.sgamer.com/*mod=forumdisplay*
-// @version     1.3
+// @version     1.3.1
 // @grant       none
 // ==/UserScript==
 
@@ -642,7 +642,7 @@ function semiAutoFarm() {
 		var allThreads = window.getElementsByTagName("tbody");
 		for(i = 0, len = allThreads.length; i < len; i++) {
 
-			if(allThreads[i].id.match(/normalthread_(.*)) {
+			if(allThreads[i].id.match(/normalthread_(.*)/) {
 				tid = RegExp.$1;
 				allAs = allThreads[i].getElementsByTagName('a');
 				for(j = 0, llen = allAs.length; j < llen; j++) {
