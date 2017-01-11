@@ -617,6 +617,7 @@ function semiAutoFarm() {
 			var curText = replys[index];
 			if(fastfarm(curText)) {
 				count++;
+				alert(count);
 			}
 			setTimeout(actualReply, 16000);
 		} else {
