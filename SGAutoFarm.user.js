@@ -6,7 +6,7 @@
 // @include     http://bbs.sgamer.com/thread-*.html
 // @include     http://bbs.sgamer.com/*mod=viewthread*
 // @include     http://bbs.sgamer.com/*mod=forumdisplay*
-// @version     1.3.2
+// @version     1.3.3
 // @grant       none
 // ==/UserScript==
 
@@ -630,6 +630,7 @@ function semiAutoFarm() {
 	// var p3 = new RegExp("http://bbs.sgamer.com/*mod=forumdisplay*");
 	if(p1.test(location.href)) {
 		var curText = "伐木伐木";
+		alter(curText);
 		ajaxfastfarm(curText);
 	}
 })();
