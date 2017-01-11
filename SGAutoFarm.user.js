@@ -626,8 +626,8 @@ var replys = new Array();
 // 	},16000);
 // })();
 
+var replyCount = 0;
 function semiAutoFarm() {
-	var replyCount = 0;
 	wholeText = replys.join("\n");
 	console.log(wholeText);
 	function actualReply() {
@@ -636,7 +636,7 @@ function semiAutoFarm() {
 			var index = parseInt(Math.random() * replys.length);
 			var curText = replys[index];
 			if(ajaxfastfarm(curText)) {
-				console.log(curText);
+				alter("小心雪皇抓到你");
 				replyCount++;
 			}
 			setTimeout(actualReply, 16000);
