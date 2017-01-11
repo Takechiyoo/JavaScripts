@@ -6,7 +6,7 @@
 // @include     http://bbs.sgamer.com/thread-*.html
 // @include     http://bbs.sgamer.com/*mod=viewthread*
 // @include     http://bbs.sgamer.com/*mod=forumdisplay*
-// @version     1.3.1
+// @version     1.3.2
 // @grant       none
 // ==/UserScript==
 
@@ -625,17 +625,17 @@ function semiAutoFarm() {
 }
 
 (function(){
-	var p1 = new RegExp("http://bbs.sgamer.com/thread-*.html");
-	var p2 = new RegExp("http://bbs.sgamer.com/*mod=viewthread*");
-	var p3 = new RegExp("http://bbs.sgamer.com/*mod=forumdisplay*");
-	if(p1.test(location.href) || p2.test(location.href) || p3.test(location.href)) {
+	var p1 = new RegExp("http://bbs.sgamer.com/thread-.*html");
+	// var p2 = new RegExp("http://bbs.sgamer.com/*mod=viewthread*");
+	// var p3 = new RegExp("http://bbs.sgamer.com/*mod=forumdisplay*");
+	if(p1.test(location.href)) {
 		var curText = "伐木伐木";
 		ajaxfastfarm(curText);
 	}
 })();
 
 (function() {
-	var p = new RegExp("http://bbs.sgamer.com/forum-*.html");
+	var p = new RegExp("http://bbs.sgamer.com/forum-.*html");
 	if(p.test(location.href)) {
 		location.reload();
 
