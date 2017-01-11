@@ -611,12 +611,12 @@ var replys = new Array();
 var count = 0;
 function semiAutoFarm() {
 	function actualReply() {
+		alert(count);
 		if(count < 1) {
 			var index = parseInt(Math.random() * replys.length);
 			var curText = replys[index];
 			if(fastfarm(curText)) {
 				count++;
-				alert(count);
 			}
 			setTimeout(actualReply, 16000);
 		} else {
