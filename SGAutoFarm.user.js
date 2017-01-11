@@ -6,7 +6,7 @@
 // @include     http://bbs.sgamer.com/thread-*.html
 // @include     http://bbs.sgamer.com/*mod=viewthread*
 // @include     http://bbs.sgamer.com/*mod=forumdisplay*
-// @version     1.2.1
+// @version     1.2.2
 // @grant       none
 // ==/UserScript==
 
@@ -113,7 +113,7 @@ function ajaxfastfarm(message) {
 	}
 	input.value = precensore(recoverText(message));
 	setTimeLimit();
-	form.getElementById("vreplysubmit").click();
+	form.getElementsByTagName("button")[0].click();
 }
 
 function getCookie(c_name) {
