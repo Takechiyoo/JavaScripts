@@ -556,55 +556,57 @@ if (devmode) {
 	alert("耗时：" + (new Date().getTime() - timestamp.getTime()) + "毫秒");
 }
 
+
 // 收集所有的已有回帖
-var replys = new Array();
-(function () {
-	var postlist = document.getElementById("postlist");
-	if (postlist == null) {
-		return;
-	}
-	var postNodes = postlist.childNodes;
-	for (var i = 0; i < postNodes.length; i++) {
-		var postNode = postNodes[i];
+// var replys = new Array();
+// (function () {
+// 	var postlist = document.getElementById("postlist");
+// 	if (postlist == null) {
+// 		return;
+// 	}
+// 	var postNodes = postlist.childNodes;
+// 	for (var i = 0; i < postNodes.length; i++) {
+// 		var postNode = postNodes[i];
 
-		if (postNode && 
-			postNode.getAttribute && 
-			postNode.getAttribute("id") && 
-			postNode.getAttribute("id").match("post_")) {
-			var tds = postNode.getElementsByTagName("td");
+// 		if (postNode && 
+// 			postNode.getAttribute && 
+// 			postNode.getAttribute("id") && 
+// 			postNode.getAttribute("id").match("post_")) {
+// 			var tds = postNode.getElementsByTagName("td");
 
-			for (var k = 0; k < tds.length; k++) {
-				// 内容
-				if (tds[k].id && tds[k].id.match("postmessage_")) {
-					tds[k].innerHTML = recoverText(tds[k].innerHTML);
-				}
-			}
-			var divs = postNode.getElementsByTagName("div");
-			for (var j = 0; j < divs.length; j++) {
-				if (divs[j].className == "authi" && divs[j].parentNode.className == "pti") {
-					var postText = "伐木伐木";
-					var tds = divs[j].parentNode.parentNode.parentNode.getElementsByTagName("td");
-					for (var k = 0; k < tds.length; k++) {
-						if (tds[k].getAttribute("id").match("postmessage_")) {
-							replaceFace(tds[k]);
-							// 去掉文本开始的空格
-							postText = (tds[k].innerText || tds[k].textContent || tds[k].text || "").replace(/^\s*/g, "");
-							if (postText[0] == "\n") {
-								postText = postText.slice(1);
-							}
-							break;
-						}
-					}
-					if(postText.length == undefined) {
-						postText = "伐木伐木";
-					}
-//					replys[i] = postText;
-					replys[i] = "伐木伐木";
-				}
-			}
-		}
-	}
-})();
+// 			for (var k = 0; k < tds.length; k++) {
+// 				// 内容
+// 				if (tds[k].id && tds[k].id.match("postmessage_")) {
+// 					tds[k].innerHTML = recoverText(tds[k].innerHTML);
+// 				}
+// 			}
+// 			var divs = postNode.getElementsByTagName("div");
+// 			for (var j = 0; j < divs.length; j++) {
+// 				if (divs[j].className == "authi" && divs[j].parentNode.className == "pti") {
+// 					var postText = "伐木伐木";
+// 					var tds = divs[j].parentNode.parentNode.parentNode.getElementsByTagName("td");
+// 					for (var k = 0; k < tds.length; k++) {
+// 						if (tds[k].getAttribute("id").match("postmessage_")) {
+// 							replaceFace(tds[k]);
+// 							// 去掉文本开始的空格
+// 							postText = (tds[k].innerText || tds[k].textContent || tds[k].text || "").replace(/^\s*/g, "");
+// 							if (postText[0] == "\n") {
+// 								postText = postText.slice(1);
+// 							}
+// 							break;
+// 						}
+// 					}
+// 					if(postText.length == undefined) {
+// 						postText = "伐木伐木";
+// 					}
+// //					replys[i] = postText;
+// 					replys[i] = "伐木伐木";
+// 				}
+// 			}
+// 		}
+// 	}
+// })();
+
 
 function semiAutoFarm() {
 	function actualReply() {
@@ -624,7 +626,7 @@ function semiAutoFarm() {
 	setTimeout(actualReply, 16000);
 }
 
-(function(){
+(function (){
 	var p1 = new RegExp("http://bbs.sgamer.com/thread-.*html");
 	// var p2 = new RegExp("http://bbs.sgamer.com/*mod=viewthread*");
 	// var p3 = new RegExp("http://bbs.sgamer.com/*mod=forumdisplay*");
@@ -643,9 +645,9 @@ function semiAutoFarm() {
 		var allThreads = window.getElementsByTagName("tbody");
 		for(i = 0, len = allThreads.length; i < len; i++) {
 
-			if(allThreads[i].id.match(/normalthread_(.*)/) {
+			if(allThreads[i].id.match(/normalthread_(.*)/)) {
 				tid = RegExp.$1;
-				allAs = allThreads[i].getElementsByTagName('a');
+				allAs = allThreads[i].getElementsByTagName("a");
 				for(j = 0, llen = allAs.length; j < llen; j++) {
 					// 正则表达式里面有变量
 					var p = new RegExp("thread-"+tid+"-1-1.html");
