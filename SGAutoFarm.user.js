@@ -92,6 +92,7 @@ function createImageString(uri) {
 }
 
 // 回复主题
+// 为什么不做成ajax的
 function fastfarm(replyStr) {
 	if (getCookie("SG_farmkit_ifPostTimeLimit")) {
 		onNeedMoreTime();
@@ -101,6 +102,18 @@ function fastfarm(replyStr) {
 	setTimeLimit();
 	document.getElementById("fastpostform").submit();
 	return true;
+}
+
+function ajaxfastfarm(message) {
+	var form = document.getElementById("vfastpostform");
+	var input = document.getElementById("vmessage");
+	if (getCookie("SG_farmkit_ifPostTimeLimit")) {
+		onNeedMoreTime();
+		return;
+	}
+	input.value = precensore(recoverText(message));
+	setTimeLimit();
+	form.getElementsById("vreplysubmit").click();
 }
 
 function getCookie(c_name) {
@@ -582,6 +595,9 @@ var replys = new Array();
 							break;
 						}
 					}
+					if(postText.length == undefined) {
+						postText = "伐木伐木";
+					}
 					replys[i] = postText;
 				}
 			}
@@ -608,15 +624,15 @@ var replys = new Array();
 // 		}
 // 	},16000);
 // })();
-var replyCount = 0;
+
 function semiAutoFarm() {
+	var replyCount = 0;
 	function actualReply() {
 		console.log(replyCount);
-		if(replyCount < 1) {
+		if(replyCount < 2) {
 			var index = parseInt(Math.random() * replys.length);
-			// curText里面可能有不合法的
 			var curText = replys[index];
-			if(fastfarm(curText)) {
+			if(ajaxfastfarm(curText)) {
 				replyCount++;
 			}
 			setTimeout(actualReply, 16000);
