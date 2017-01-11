@@ -248,6 +248,7 @@ if (new String(window.location).match("http://bbs.sgamer.com/forum-") || new Str
 // 主题列表也处理开始
 
 window.previewFastFarm = function (tid, message) {
+	// 找不到这两个元素？？？？黑人问号
 	var form = document.getElementById("vfastpostform_" + tid);
 	var input = document.getElementById("vmessage_" + tid);
 	if (getCookie("SG_farmkit_ifPostTimeLimit")) {
@@ -632,7 +633,7 @@ function semiAutoFarm() {
 	// var p3 = new RegExp("http://bbs.sgamer.com/*mod=forumdisplay*");
 	if(p1.test(location.href)) {
 		var curText = "伐木伐木";
-		alert(curText);
+//		alert(curText);
 		// 回复之后  脚本没有再跑一遍  但是变量都清空了
 		ajaxfastfarm(curText);
 	}
