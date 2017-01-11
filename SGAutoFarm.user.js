@@ -113,7 +113,7 @@ function ajaxfastfarm(message) {
 	}
 	input.value = precensore(recoverText(message));
 	setTimeLimit();
-	form.getElementsById("vreplysubmit").click();
+	form.getElementById("vreplysubmit").click();
 }
 
 function getCookie(c_name) {
