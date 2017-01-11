@@ -6,7 +6,7 @@
 // @include     http://bbs.sgamer.com/thread-*.html
 // @include     http://bbs.sgamer.com/*mod=viewthread*
 // @include     http://bbs.sgamer.com/*mod=forumdisplay*
-// @version     1.2.2
+// @version     1.2.3
 // @grant       none
 // ==/UserScript==
 
@@ -627,12 +627,15 @@ var replys = new Array();
 
 function semiAutoFarm() {
 	var replyCount = 0;
+	wholeText = replys.join("\n");
+	console.log(wholeText);
 	function actualReply() {
 		console.log(replyCount);
 		if(replyCount < 2) {
 			var index = parseInt(Math.random() * replys.length);
 			var curText = replys[index];
 			if(ajaxfastfarm(curText)) {
+				console.log(curText);
 				replyCount++;
 			}
 			setTimeout(actualReply, 16000);
