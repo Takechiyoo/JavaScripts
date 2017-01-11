@@ -611,7 +611,7 @@ var replys = new Array();
 var replyCount = 0;
 function semiAutoFarm() {
 	function actualReply() {
-		alert(replyCount);
+		console.log(replyCount);
 		if(replyCount < 1) {
 			var index = parseInt(Math.random() * replys.length);
 			// curText里面可能有不合法的
