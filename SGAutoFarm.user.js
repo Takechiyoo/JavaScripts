@@ -6,7 +6,7 @@
 // @include     http://bbs.sgamer.com/thread-*.html
 // @include     http://bbs.sgamer.com/*mod=viewthread*
 // @include     http://bbs.sgamer.com/*mod=forumdisplay*
-// @version     1.3.10
+// @version     1.3.11
 // @grant       none
 // ==/UserScript==
 
@@ -639,35 +639,37 @@ function semiAutoFarm() {
 	}
 })();
 
-(function() {
-	var p = new RegExp("http://bbs.sgamer.com/forum-.*html");
-	if(p.test(location.href)) {
 
-		var allThreads = document.getElementsByTagName("tbody");
-		for(i = 0, len = allThreads.length; i < len; i++) {
 
-			if(allThreads[i].id.match(/normalthread_(.*)/)) {
-				tid = RegExp.$1;
-				allAs = allThreads[i].getElementsByTagName("a");
-				for(j = 0, llen = allAs.length; j < llen; j++) {
-					// 正则表达式里面有变量
-					var p = new RegExp("thread-"+tid+"-1-1.html");
-					if(p.test(allAs[j].href)) {
-						// 没有获取到文本
-						message = allAs[j].innerText;
-						break;
-					}
-				}
-				// 如果previewFastFarm调用失败  会继续下一个thread
-				setTimeout(function() {
-					message = "伐木伐木";
-					previewFastFarm(tid, message);
-					location.reload();
-				}, 16000);
-			}
-		}
-	}
-})();
+// (function() {
+// 	var p = new RegExp("http://bbs.sgamer.com/forum-.*html");
+// 	if(p.test(location.href)) {
+
+// 		var allThreads = document.getElementsByTagName("tbody");
+// 		for(i = 0, len = allThreads.length; i < len; i++) {
+
+// 			if(allThreads[i].id.match(/normalthread_(.*)/)) {
+// 				tid = RegExp.$1;
+// 				allAs = allThreads[i].getElementsByTagName("a");
+// 				for(j = 0, llen = allAs.length; j < llen; j++) {
+// 					// 正则表达式里面有变量
+// 					var p = new RegExp("thread-"+tid+"-1-1.html");
+// 					if(p.test(allAs[j].href)) {
+// 						// 没有获取到文本
+// 						message = allAs[j].innerText;
+// 						break;
+// 					}
+// 				}
+// 				// 如果previewFastFarm调用失败  会继续下一个thread
+// 				setTimeout(function() {
+// 					message = "伐木伐木";
+// 					previewFastFarm(tid, message);
+// 					location.reload();
+// 				}, 16000);
+// 			}
+// 		}
+// 	}
+// })();
 
 
 
