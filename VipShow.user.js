@@ -7,7 +7,7 @@
 // @description:en  Crack VIP permissions of some chinese video sites
 // @author       tom.ding
 // @include       *://v.qq.com/x/*
-// @include       *://sports.qq.com/*
+// @include       *://sports.qq.com/kbsweb/*
 // @include       *://m.v.qq.com/*
 // @include       *://*.mgtv.com/*b/*
 // @include       *://*.le.com/ptv/vplay/*
